@@ -50,8 +50,9 @@ Conversation.prototype.setCurrentTree = function setCurrentTree(treeIndex) {
     'use strict';
     if (treeIndex >= this.structure.length) {
         throw new Error('treeIndex is out of bounds.');
+    } else {
+        this.currentTree = treeIndex;
     }
-    this.currentTree = treeIndex;
 };
 
 
