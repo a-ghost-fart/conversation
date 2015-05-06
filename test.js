@@ -65,7 +65,7 @@ Conversation.prototype.startConversation = function startConversation(treeIndex)
         throw new Error('Failed to start conversation as treeIndex is undefined.');
     } else {
         this.setCurrentTree(treeIndex);
-        var options = this.structure[this.currentTree].nodes;
+        var options = this.structure[this.currentTree].options;
         for (var i = 0; i < options.length; i++) {
             this._printLn((i + 1) + ': ' + this.getLabel(i) + ' (' + options[i].read + ')');
         }
