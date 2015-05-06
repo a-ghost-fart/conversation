@@ -67,7 +67,7 @@ Conversation.prototype.startConversation = function startConversation(treeIndex)
         this.setCurrentTree(treeIndex);
         var options = this.structure[this.currentTree].options;
         for (var i = 0; i < options.length; i++) {
-            this._printLn((i + 1) + ': ' + this.getLabel(i) + ' (' + options[i].read + ')');
+            this._printLn((i + 1) + ': ' + this.getLabel(i) + ' (' + this.getReadState(i) + ')');
         }
     }
 };
@@ -90,7 +90,7 @@ Conversation.prototype.getFollowupTree = function getFollowupTree(nodeId) {
 Conversation.prototype.getResponse = function getResponse(nodeId) {
     'use strict';
     if (nodeId === undefined) {
-        throw new Error('You must provide a nodeId when calling getFollupTree().');
+        throw new Error('You must provide a nodeId when calling getResponse().');
     } else if (nodeId >= this.structure[this.currentTree].nodes.length) {
         throw new Error('nodeId out of bounds for treeIndex ' + this.currentTree);
     } else {
@@ -100,11 +100,24 @@ Conversation.prototype.getResponse = function getResponse(nodeId) {
 };
 
 
+// Get the boolean as to whether the node has previously been accessed
+Conversation.prototype.getReadState = function getReadState(nodeId) {
+    'use strict';
+    if (nodeId === undefined) {
+        throw new Error('You must provide a nodeId when calling getReadState().');
+    } else if (nodeId >= this.structure[this.currentTree].nodes.length) {
+        throw new Error('nodeId out of bounds for treeIndex ' + this.currentTree);
+    } else {
+        return this.structure[this.currentTree].nodes[nodeId].read;
+    }
+};
+
+
 // Gets the label text for selected node id.
 Conversation.prototype.getLabel = function getLabel(nodeId) {
     'use strict';
     if (nodeId === undefined) {
-        throw new Error('You must provide a nodeId when calling getFollupTree().');
+        throw new Error('You must provide a nodeId when calling getLabel().');
     } else if (nodeId >= this.structure[this.currentTree].nodes.length) {
         throw new Error('nodeId out of bounds for treeIndex ' + this.currentTree);
     } else {
@@ -117,7 +130,7 @@ Conversation.prototype.getLabel = function getLabel(nodeId) {
 Conversation.prototype.actOnSelection = function actOnSelection(nodeId) {
     'use strict';
     if (nodeId === undefined) {
-        throw new Error('You must provide a nodeId when calling getFollupTree().');
+        throw new Error('You must provide a nodeId when calling actOnSelection().');
     } else if (nodeId >= this.structure[this.currentTree].nodes.length) {
         throw new Error('nodeId out of bounds for treeIndex ' + this.currentTree);
     } else {
